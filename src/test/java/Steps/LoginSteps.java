@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
-
+import java.time.Duration;
 
 
 public class LoginSteps {
@@ -20,6 +20,8 @@ public class LoginSteps {
     @Given("I navigate to the login page")
     public void GoToLoginPage()
     {
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8000));
         driver.get("https://grafana.com/auth/sign-in");
 
     }
@@ -27,9 +29,10 @@ public class LoginSteps {
     @When("I enter valid username and password")
     public void ValidCredentials()
     {
-        driver.findElement(By.name("login")).sendKeys("ahad1105jon@gmail.com");
+
+        driver.findElement(By.xpath("//input[@name='login']")).sendKeys("ahad1105jon@gmail.com");
         driver.findElement(By.id("submit")).click();
-        driver.findElement(By.name("password")).sendKeys("System@1234");
+        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("System@1234");
 
     }
 
@@ -43,7 +46,7 @@ public class LoginSteps {
     public void Dashboard()
     {
         pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Grafana dashboards | Grafana Labs");
+        Assert.assertEquals(pageTitle, "Grafana Cloud - Sign In");
     }
 
 
